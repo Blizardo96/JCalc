@@ -3,11 +3,11 @@
     <junit printsummary="on" haltonfailure="no">
     <classpath>
         <fileset dir="${junit.dir}" includes="junit-4.10.jar"/>
-        <pathelement  location="${build.dir}"/>
+        <pathelement  location="${build.lib.dir}"/>
     </classpath>
         <formatter type="plain" />
         <batchtest todir="${test.report.dir}">
-            <fileset dir="${unittest.dir}" />
+            <fileset dir="${test.dir}" />
         </batchtest> 
     </junit>
 </target>
