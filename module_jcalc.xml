@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jcalc" default="compile.module.jcalc">
+  <dirname property="module.jcalc.basedir" file="${ant.file.module_jcalc}"/>
+  
+  <property name="module.jdk.home.jcalc" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jcalc" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jcalc" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jcalc" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="jcalc.output.dir" value="${module.jcalc.basedir}/out/production/jcalc"/>
+  <property name="jcalc.testoutput.dir" value="${module.jcalc.basedir}/out/test/jcalc"/>
+  
+  <path id="jcalc.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jcalc.module.production.classpath">
+    <path refid="${module.jdk.classpath.jcalc}"/>
+    <path refid="library.junit-4.10.classpath"/>
+  </path>
+  
+  <path id="jcalc.runtime.production.module.classpath">
+    <pathelement location="${jcalc.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+  </path>
+  
+  <path id="jcalc.module.classpath">
+    <path refid="${module.jdk.classpath.jcalc}"/>
+    <pathelement location="${jcalc.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+  </path>
+  
+  <path id="jcalc.runtime.module.classpath">
+    <pathelement location="${jcalc.testoutput.dir}"/>
+    <pathelement location="${jcalc.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jcalc">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jcalc">
+    <patternset refid="excluded.from.module.jcalc"/>
+  </patternset>
+  
+  <path id="jcalc.module.sourcepath">
+    <dirset dir="${module.jcalc.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="jcalc.module.test.sourcepath">
+    <dirset dir="${module.jcalc.basedir}">
+      <include name="Test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jcalc" depends="compile.module.jcalc.production,compile.module.jcalc.tests" description="Compile module jcalc"/>
+  
+  <target name="compile.module.jcalc.production" depends="register.custom.compilers" description="Compile module jcalc; production classes">
+    <mkdir dir="${jcalc.output.dir}"/>
+    <javac2 destdir="${jcalc.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jcalc}/javac">
+      <compilerarg line="${compiler.args.jcalc}"/>
+      <bootclasspath refid="jcalc.module.bootclasspath"/>
+      <classpath refid="jcalc.module.production.classpath"/>
+      <src refid="jcalc.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jcalc"/>
+    </javac2>
+    
+    <copy todir="${jcalc.output.dir}">
+      <fileset dir="${module.jcalc.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jcalc.tests" depends="register.custom.compilers,compile.module.jcalc.production" description="compile module jcalc; test classes" unless="skip.tests">
+    <mkdir dir="${jcalc.testoutput.dir}"/>
+    <javac2 destdir="${jcalc.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jcalc}/javac">
+      <compilerarg line="${compiler.args.jcalc}"/>
+      <bootclasspath refid="jcalc.module.bootclasspath"/>
+      <classpath refid="jcalc.module.classpath"/>
+      <src refid="jcalc.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jcalc"/>
+    </javac2>
+    
+    <copy todir="${jcalc.testoutput.dir}">
+      <fileset dir="${module.jcalc.basedir}/Test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.jcalc" description="cleanup module">
+    <delete dir="${jcalc.output.dir}"/>
+    <delete dir="${jcalc.testoutput.dir}"/>
+  </target>
+</project>
