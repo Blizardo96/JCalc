@@ -30,7 +30,7 @@ public class calculate
             throws Exception
     {
 
-        String url = "http://localhost:8370";
+        String url = "http://localhost/site/func.php";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         final String USER_AGENT = "Mozilla/5.0";
@@ -44,7 +44,7 @@ public class calculate
         String num2 = String.valueOf(sNum);
         String act = whatToDo;
 
-        String urlParameters = "num1=" + num1 +"&num2=" + num2 + "&opr="+act;
+        String urlParameters = "num1=" + num1 +"&num2=" + num2 + "&act="+act;
 
         // Send post request
         con.setDoOutput(true);

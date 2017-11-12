@@ -46,7 +46,7 @@ public class CalcPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                whatToDo = "+";
+                whatToDo = "plus";
                 fNum = Integer.parseInt(output.getText());
                 output.setText("");
 
@@ -57,7 +57,7 @@ public class CalcPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                whatToDo = "-";
+                whatToDo = "minus";
                 fNum = Integer.parseInt(output.getText());
                 output.setText("");
             }
@@ -67,7 +67,7 @@ public class CalcPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                whatToDo = "*";
+                whatToDo = "multiply";
                 fNum = Integer.parseInt(output.getText());
                 output.setText("");
             }
@@ -77,7 +77,7 @@ public class CalcPanel extends JPanel
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                whatToDo = "/";
+                whatToDo = "div";
                 fNum = Integer.parseInt(output.getText());
                 output.setText("");
             }
