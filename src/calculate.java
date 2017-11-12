@@ -26,11 +26,11 @@ public class calculate
         return res;
     }
 
-    public double sendPost(int fNum , int sNum , String whatToDo )
+    public String sendPost(int fNum , int sNum , String whatToDo )
             throws Exception
     {
 
-        String url = "http://localhost/site/func.php";
+        String url = "http://localhost:8370";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         final String USER_AGENT = "Mozilla/5.0";
@@ -44,7 +44,7 @@ public class calculate
         String num2 = String.valueOf(sNum);
         String act = whatToDo;
 
-        String urlParameters = "num1=" + num1 +"&num2=" + num2 + "&act="+act;
+        String urlParameters = "num1=" + num1 +"&num2=" + num2 + "&opr="+act;
 
         // Send post request
         con.setDoOutput(true);
@@ -63,7 +63,7 @@ public class calculate
         }
         in.close();
 
-        return Double.parseDouble(response.toString());
+        return response.toString();
 
     }
 }
